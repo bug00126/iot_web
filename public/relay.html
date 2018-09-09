@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>RELAY控制</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="index1.html">Arduino 智慧家庭控制</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="relay.html">RELAY控制</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="lcd.html">LCD控制</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-6">Relay(繼電器的控制)</h1>
+          <p class="lead">這個繼電器，將要控制雲端Firebase及時資料庫內的lcd/relay1和lcd/relay2</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-6">Relay Controller 1</h1>
+              <p class="lead">Electricity Controller</p>
+              <p class="mb-0">To control relay 1, please press button</p>
+              <div class="btn-group mx-3 my-3" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-default btn-lg" id="relay1_on">On</button>
+                <button type="button" class="btn btn-danger btn-lg" id="relay1_off">Off</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-6">Relay Controller 2</h1>
+              <p class="lead">Safety Controller</p>
+              <p class="mb-0">To control relay 2, please press button</p>
+              <div class="btn-group mx-3 my-3" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-default btn-lg" id="relay2_on">On</button>
+                <button type="button" class="btn btn-danger btn-lg" id="relay2_off">Off</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAOee9G0sN-WMYNMhiUT9FsoLbrtA7z6PU",
+        authDomain: "arduino-fb61a.firebaseapp.com",
+        databaseURL: "https://arduino-fb61a.firebaseio.com",
+        projectId: "arduino-fb61a",
+        storageBucket: "arduino-fb61a.appspot.com",
+        messagingSenderId: "434259288925"
+      };
+      firebase.initializeApp(config);
+      console.log(firebase.SDK_VERSION);
+      
+      // do whatever you want after you're ready
+      // otherwise, the site may crush
+      $(document).ready(()=>{
+        // chack if page is already loaded
+        console.log("ready");
+
+        // get database
+        var db = firebase.database();
+        // regist event relay1
+        var relay1Ref = db.ref('lcd/relay1');
+        relay1Ref.on("value", data => {
+          if(data.val()) {
+            $('#relay1_on').removeClass('btn-default').addClass('btn-danger');
+            $('#relay1_off').removeClass('btn-danger').addClass('btn-default');
+          } else {
+            $('#relay1_off').removeClass('btn-default').addClass('btn-danger');
+            $('#relay1_on').removeClass('btn-danger').addClass('btn-default');
+          }
+        });
+        // regist event relay1
+        var relay2Ref = db.ref('lcd/relay2');
+        relay2Ref.on("value", data => {
+          if(data.val()) {
+            $('#relay2_on').removeClass('btn-default').addClass('btn-danger');
+            $('#relay2_off').removeClass('btn-danger').addClass('btn-default');
+          } else {
+            $('#relay2_off').removeClass('btn-default').addClass('btn-danger');
+            $('#relay2_on').removeClass('btn-danger').addClass('btn-default');
+          }
+        });
+        $('#relay1_on').click(() => {
+          relay1Ref.set(true);
+        });
+        $('#relay1_off').click(() => {
+          relay1Ref.set(false);
+        });
+        $('#relay2_on').click(() => {
+          relay2Ref.set(true);
+        });
+        $('#relay2_off').click(() => {
+          relay2Ref.set(false);
+        });
+      });
+
+      
+    </script>
+  </body>
+</html>
