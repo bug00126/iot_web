@@ -1,0 +1,28 @@
+[debug] [2018-09-16T04:30:22.672Z] ----------------------------------------------------------------------
+[debug] [2018-09-16T04:30:22.677Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-09-16T04:30:22.678Z] CLI Version:   4.2.0
+[debug] [2018-09-16T04:30:22.678Z] Platform:      darwin
+[debug] [2018-09-16T04:30:22.678Z] Node Version:  v6.13.1
+[debug] [2018-09-16T04:30:22.679Z] Time:          Sun Sep 16 2018 12:30:22 GMT+0800 (CST)
+[debug] [2018-09-16T04:30:22.679Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-09-16T04:30:22.696Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-09-16T04:30:22.696Z] > authorizing via signed-in user
+[debug] [2018-09-16T04:30:22.699Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-09-16T04:30:22.700Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-09-16T04:30:22.847Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-16T04:30:22.914Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/arduino-fb61a  
+ 
+[debug] [2018-09-16T04:30:23.693Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-16T04:30:23.695Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/arduino-fb61a  
+ 
+[debug] [2018-09-16T04:30:24.680Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/sunday/Documents/n2FirebaseWeb_Arduino1'...
+[info] 
+[debug] [2018-09-16T04:30:24.684Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/434259288925/clients/_:getWebAppConfig  
+ 
+[debug] [2018-09-16T04:30:25.198Z] <<< HTTP RESPONSE 200
+[info] i  hosting[arduino-fb61a]: Serving hosting files from: public
+[info] ✔  hosting[arduino-fb61a]: Local server: http://localhost:5000
